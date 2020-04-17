@@ -64,27 +64,19 @@ public class ClientChat {
 //				}
 				
 				//if(msg!=null) {
+				sendMsg = withServer.getOutputStream();
 				byte[] reBuffer = new byte[1024];
 				reMsg.read(reBuffer);
+				System.out.println("////");
 				msg = new String(reBuffer);
 				msg = msg.trim();
 				System.out.println("클라이언트에서 메세지를 받았어요."+msg);
-				MessageCenter blueBird = new MessageCenter(null);
-				//member.complete(msg); 
-				//}
+				//MessageCenter blueBird = new MessageCenter(null);
+			//	member.complete(msg); 
+				//blueBird.send(msg);
+	//			}
 
-//						System.out.println("zzz");
-//						Login lg = new Login();
-//						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//						ObjectOutputStream oos = new ObjectOutputStream(baos);
-//						oos.writeObject(check);
-//						byte[] bowl = baos.toByteArray();
-				// op = sc.getOutputStream();
-//						op.write(bowl);
 
-//						sendMsg = withServer.getOutputStream();
-//						sendMsg.write(bowl);
-//						sendMsg.write(pwd.getBytes());
 			}
 		} catch (Exception e) {
 			System.out.println("client send end !!!");
@@ -111,18 +103,8 @@ public class ClientChat {
 				System.out.println("보내기 완료");
 			}
 
-			// 메세지 받기
-//			reMsg = withServer.getInputStream();
-//			byte[] reBuffer = new byte[100];
-//			reMsg.read(reBuffer);
-//			String msg = new String(reBuffer);
-//			msg = msg.trim();
-//			System.out.println("클라이언트에서 메세지를 받았어요."+msg);
-//			Signup member = new Signup(this);
-//			member.complete(msg); 
-			
 
-//			System.out.println("서버에서 보낸 메시지 확인 :" + msg);
+	
 		} catch (Exception e) {
 		}
 	}

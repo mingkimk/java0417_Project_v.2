@@ -1,10 +1,12 @@
 package DB;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 public class MemberDAO {
 
 	private Connection conn;
@@ -85,4 +87,45 @@ public class MemberDAO {
 
 		return result;
 	}
+
+	public boolean loginchk(Object oj) {
+		boolean result = false;
+		String[] check = (String[]) oj;
+		member = new MemberDTO();
+		for (int i = 0; i < check.length; i++) {
+			member.setId(check[0]);
+			member.setName(check[1]);
+			member.setPwd(check[2]);
+			member.setAdr(check[3]);
+			member.setCell(check[4]);
+		}
+		if (this.connect()) {
+			try {
+				stmt = conn.createStatement();
+				String id = "";
+				String sql = "SELECT * from member where id='" + id + "'";
+				rs = stmt.executeQuery(sql);
+				System.out.println(2);
+				if (rs.next()) {
+					MemberDTO member = new MemberDTO();
+					member.setId(rs.getString("id"));
+					member.setName(rs.getString("name"));
+					member.setPwd(rs.getString("pwd"));
+					member.setAdr(rs.getString("adr"));
+					member.setCell(rs.getString("cell"));
+					member.setLv(rs.getInt("lv"));
+					return true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			System.out.println("DB연결 실패");
+			System.exit(0);
+		}
+		return result;
+
+	}
+
 }

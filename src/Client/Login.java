@@ -8,6 +8,7 @@ import java.io.Serializable;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -19,6 +20,7 @@ public class Login extends JFrame implements ActionListener, Serializable {
 	JTextField idField, pwdField, loginField;
 	JButton loginBtn, joinBtn;
 	ClientChat client = null;
+	private static ClientChat ch = null;
 
 	Login(ClientChat client) {
 		super("로그인");
@@ -77,6 +79,17 @@ public class Login extends JFrame implements ActionListener, Serializable {
 		// true면 화면에서 나타나고 false면 화면에서 사라져라
 		this.setVisible(true);
 	}
+//	public void messagecheck(String msg) {
+//		if (msg != null) {
+//			if (msg.equals("loginyes")) {
+//				JOptionPane.showMessageDialog(null, "로그인 완료되었습니다.");
+//				dispose();
+//			} else if (msg.equals("loginno")) {
+//				JOptionPane.showMessageDialog(null, "로그인 실패하였습니다.");
+//				dispose();
+//			}
+//		}
+//	}
 
 	private void loginchk() {
 		loginBtn.addActionListener(new ActionListener() {
@@ -84,7 +97,8 @@ public class Login extends JFrame implements ActionListener, Serializable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					String[] check = { idField.getText(), pwdField.getText(), "login" };
-					client.streamSet(check);
+					//client.streamSet(check);
+					ch.streamSet(check);
 
 				} catch (Exception e1) {
 					e1.printStackTrace();

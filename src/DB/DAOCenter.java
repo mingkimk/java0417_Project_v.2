@@ -13,7 +13,7 @@ public class DAOCenter implements DAOInterface {
 	private Connection conn;
 	private Statement stmt;
 	private ResultSet rs;
-	private String[] check=null;
+	private String[] check = null;
 //	private MemberDAO memDAO = null;
 //	private ManagementDAO mgmtDAO = null;
 //	private CartDAO cartDAO = null;
@@ -21,7 +21,7 @@ public class DAOCenter implements DAOInterface {
 	private static MemberDAO dao = MemberDAO.getInstance();
 	String notice = "";
 	ServerCenter sc = null;
-	String msg=null;
+	String msg = null;
 	ServerChat ss;
 
 	private DAOCenter() {
@@ -56,18 +56,19 @@ public class DAOCenter implements DAOInterface {
 		}
 	}
 
-	public void whichone(Object objectMember,ServerChat ss) {
-		this.ss=ss;
+	public void whichone(Object objectMember, ServerChat ss) {
+		this.ss = ss;
 		check = (String[]) objectMember;
 		for (int i = 0; i < check.length; i++) {
 			notice = check[check.length - 1];
 			if (notice.equals("login")) { // 로그인 체크
 				System.out.println(check[i]);
 				System.out.println("이건 로그인 : " + check[check.length - 1]);
+
 			} else if (notice.equals("join")) { // 회원가입 체크
-				//System.out.println("지금 여기인거니??"+check[i]);
+				// System.out.println("지금 여기인거니??"+check[i]);
 				System.out.println("이건회원가입 : " + check[check.length - 1]);
-				Insert(objectMember,notice,ss);
+				Insert(objectMember, notice, ss);
 				System.out.println("여기 갔나?");
 				break;
 			} else if (notice.equals("check")) { // 회원가입 체크
@@ -99,16 +100,16 @@ public class DAOCenter implements DAOInterface {
 		switch (notice) {
 
 		case "join":
-		System.out.println("ㅅㅂ");
-			boolean bl=dao.InsertMember(obj);
-			if(bl==true) {
+			System.out.println("ㅅㅂ");
+			boolean bl = dao.InsertMember(obj);
+			if (bl == true) {
 				msg = "yes";
-			}else {
+			} else {
 				msg = "no";
 			}
-			System.out.println("DAO에서 메세지 확인 : "+msg);
+			System.out.println("DAO에서 메세지 확인 : " + msg);
 			ss.send(msg);// sc 로 가게 수정
-			//sc.goSC(msg);
+			// sc.goSC(msg);
 			break;
 		case "goods":
 
@@ -121,7 +122,28 @@ public class DAOCenter implements DAOInterface {
 	}
 
 	@Override
-	public Boolean Select(Object DTO) {
+	public Boolean Select(Object obj, String notice, ServerChat ss) {
+		switch (notice) {
+
+		case "login":
+			System.out.println("log");
+			boolean bl = dao.loginchk(obj);
+			if (bl == true) {
+				msg = "yes";
+			} else {
+				msg = "no";
+			}
+			System.out.println("DAO에서 메세지 확인 : " + msg);
+			ss.send(msg);// sc 로 가게 수정
+			// sc.goSC(msg);
+			break;
+		case "goods":
+
+		case "cart":
+			break;
+		case "order":
+			break;
+		}
 		return null;
 	}
 
@@ -142,9 +164,5 @@ public class DAOCenter implements DAOInterface {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
-
-
-
-
 
 }
